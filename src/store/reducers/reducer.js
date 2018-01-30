@@ -1,14 +1,14 @@
 
-import Constant from '../../constant/constant'
+import Constant from '../constant/constant'
 
 var INITIAL_STATE = []
 function reducerFunction(state = INITIAL_STATE, action) {
     switch (action) {
 
-        case Constant.actionTypes.register: //register
+        case Constant.REGISTER: //register
             return state
 
-        case Constant.actionTypes.login: //login
+        case Constant.LOGIN: //login
             return state
 
         default:

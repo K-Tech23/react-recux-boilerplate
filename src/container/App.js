@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
+import { fire } from '../firbase'
+
 
 class App extends Component {
+
+
+  componentWillMount() {
+
+  }
+
   render() {
     return (
       <div className="App">
