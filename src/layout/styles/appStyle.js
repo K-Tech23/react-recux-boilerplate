@@ -1,0 +1,30 @@
+
+export default {
+    root: {
+
+        '& .appBody-div': {
+            display: 'flex',
+            flexDirection: 'row',
+            border: '1px solid black',
+            width: '100%',
+            height: '90vh',
+            padding: 5,
+
+            '& .appRightSider-div': {
+                width: '20vw',
+                border: '1px solid black'
+            },
+            '& .appContent-div': {
+                width:'calc(59vw - 15px)',
+                border: '1px solid black'
+            },
+            '& .appLeftSider-div': {
+                width: '20vw',
+                border: '1px solid black'
+            }
+
+        }
+    }
+
+
+}
