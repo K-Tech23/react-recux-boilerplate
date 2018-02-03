@@ -13,7 +13,7 @@ export default {
         '& .textField':{
             margin :10
         },
-        '& .createAccount-span':{
+        '& .alreadyLogin-span':{
             fontSize: 15,
             margin:' 10px 0px 0px 9px',
             display: 'block',

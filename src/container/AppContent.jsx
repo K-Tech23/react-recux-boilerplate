@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
+import { withStyles } from 'material-ui/styles';
+import Routes from '../routes/routes'
+import {appContentStyle} from './styles'
 
 
 class AppContent extends Component {
     render() {
         return (
             <div>
-              App Content
+              <Routes/>
             </div>
         );
     }
 }
 
-export default AppContent;
+export default withStyles(appContentStyle)(AppContent);
+

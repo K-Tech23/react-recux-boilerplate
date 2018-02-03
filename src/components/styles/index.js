@@ -1,7 +1,6 @@
 import loginStyle from './loginStyle'
-import appBarStyle from './appBarStyle'
-
+import signupStyle from './signupStyle'
 export{
     loginStyle,
-    appBarStyle
+    signupStyle
 }

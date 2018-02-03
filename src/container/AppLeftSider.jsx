@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { withStyles } from 'material-ui/styles';
 
+import {appLeftSiderStyle} from './styles'
 
 class AppLeftSider extends Component {
     render() {
@@ -11,4 +13,4 @@ class AppLeftSider extends Component {
     }
 }
 
-export default AppLeftSider;
+export default withStyles(appLeftSiderStyle)(AppLeftSider);

@@ -6,14 +6,22 @@ import TextField from 'material-ui/TextField';
 import { loginStyle } from './styles'
 import Button from 'material-ui/Button';
 import { BrowserRouter as Link } from 'react-router-dom';
+import { signupStyle } from './styles'
 
-class Login extends Component {
+class Signup extends Component {
     render() {
         const { classes } = this.props;
         return (
             <div>
                 <Paper className={classes.root} elevation={4}>
-                    <h1>Login</h1>
+                    <h1>Signup</h1>
+                    <TextField
+                        error={false}
+                        id="with-placeholder"
+                        label="Username"
+                        placeholder="Enter Your Name"
+                        className="textField"
+                    />
                     <TextField
                         error={false}
                         id="with-placeholder"
@@ -26,21 +34,28 @@ class Login extends Component {
                         error={false}
                         id="with-placeholder"
                         label="Password"
-                        className="textField"                        
+                        className="textField"
+                        placeholder="Enter Your Password"
+                        type='password'
+                    />
+                    <TextField
+                        error={false}
+                        id="with-placeholder"
+                        label="Confirm Password"
+                        className="textField"
                         placeholder="Enter Your Password"
                         type='password'
                     />
                     <Button raised color="primary">
-                        lOGIN
+                        Signup
                     </Button>
-                    {/* <Link to="/signup">Already have Account??</Link>  */}
-                <span className='createAccount-span' onClick={()=>this.props.history.push('/signup')}>
-                    Create an Account...
-                    </span>
+                    <span className='alreadyLogin-span' onClick={() => this.props.history.push('/')}>
+                        Already Have Account...?
+                        </span>
 
                 </Paper>
             </div>
         );
     }
 }
-export default withStyles(loginStyle)(Login);
+export default withStyles(signupStyle)(Signup);
