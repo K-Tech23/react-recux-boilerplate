@@ -10,10 +10,29 @@ import IconButton from 'material-ui/IconButton';
 // import MenuIcon from 'material-ui-icons/Menu';
 //import style
 import { appHeaderStyle } from './styles'
+import { fire } from '../firbase'
+import swal from 'sweetalert';
 
 
 
 class AppHeader extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+
+        }
+        this.logout = this.logout.bind(this)
+    }
+
+    logout() {
+        fire.auth().signOut().then(() => {
+            swal({
+                title: "Logout!",
+                text: "Good Bye!",
+                icon: "success",
+            });
+        })
+    }
     render() {
         const { classes } = this.props;
         return (
@@ -26,7 +45,9 @@ class AppHeader extends Component {
                         <Typography type="title" color="inherit" className={classes.flex}>
                             Title
                         </Typography>
-                        <Button color="inherit">Login</Button>
+                        <Button color="inherit"
+                        onClick={()=>this.logout()}
+                        >Logout</Button>
                     </Toolbar>
                 </AppBar>
             </div>

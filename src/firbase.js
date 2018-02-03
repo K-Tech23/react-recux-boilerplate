@@ -13,26 +13,31 @@ firebase.initializeApp(config);
 
 const fire = firebase;
 
-const register = () => {
+const signupUser = (user) => {
 
-  var email = "abcd@gmail.com"
-  var pasword = "123456"
-
-  fire.auth().createUserWithEmailAndPassword(email, pasword).then((user) => console.log(user)).catch(err => console.log(err))
+  fire.
+    auth().
+    createUserWithEmailAndPassword(user.email, user.password).
+    then((user) => console.log(user)).
+    catch(err => console.log(err))
 
 }
-const login = () => {
+const loginUser = (user) => {
 
-  var email = "abcd@gmail.com"
-  var pasword = "123456"
-
-  fire.auth().signInWithEmailAndPassword(email, pasword).then((user) => console.log(user,"login user")).catch(err => console.log(err))
+  // var email = "abcd@gmail.com"
+  // var pasword = "123456"
+  console.log(user.password, "user")
+  fire.
+    auth().
+    signInWithEmailAndPassword(user.email, user.password).
+    then((user) => console.log(user, "login user")).
+    catch(err => console.log(err))
 
 }
 
 
 export {
   fire,
-  register,
-  login
+  signupUser,
+  loginUser
 }
