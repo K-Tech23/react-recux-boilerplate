@@ -51,7 +51,7 @@ class Login extends Component {
             this.setState({
                 email: '',
                 password: ''
-            })
+            },()=>{this.props.history.push('/home')})
         }
     }
 

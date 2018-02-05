@@ -24,13 +24,13 @@ const signupUser = (user) => {
 }
 const loginUser = (user) => {
 
-  // var email = "abcd@gmail.com"
-  // var pasword = "123456"
   console.log(user.password, "user")
   fire.
     auth().
     signInWithEmailAndPassword(user.email, user.password).
-    then((user) => console.log(user, "login user")).
+    then((user) => {
+      console.log(user, "login user")
+    }).
     catch(err => console.log(err))
 
 }

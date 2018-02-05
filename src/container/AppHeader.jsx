@@ -12,6 +12,7 @@ import IconButton from 'material-ui/IconButton';
 import { appHeaderStyle } from './styles'
 import { fire } from '../firbase'
 import swal from 'sweetalert';
+import { BrowserRouter as Link } from 'react-router-dom';
 
 
 
@@ -32,6 +33,7 @@ class AppHeader extends Component {
                 icon: "success",
             });
         })
+        this.props.history.push('/')
     }
     render() {
         const { classes } = this.props;

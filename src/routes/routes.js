@@ -6,7 +6,7 @@ import purple from 'material-ui/colors/purple';
 //import components
 import Login from '../components/login'
 import Signup from '../components/signup'
-
+import Home from '../components/home'
 const theme = createMuiTheme({
   palette: {
     secondary: { main: '#11cb5f' }, // This is just green.A700 as hex.
@@ -22,6 +22,7 @@ class Routes extends Component {
             <div>
               <Route exact path="/" component={Login} />
               <Route  path="/signup" component={Signup} />
+              <Route  path="/home" component={Home} />
               
             </div>
           </div>

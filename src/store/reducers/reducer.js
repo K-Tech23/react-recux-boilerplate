@@ -8,7 +8,7 @@ var INITIAL_STATE =
     }
 function reducerFunction(state = INITIAL_STATE, action) {
     console.log(action, "reducer calling")
-    switch (action) {
+    switch (action.type) {
 
         case Constant.USER_LOGIN: //login user
         console.log("user login")
