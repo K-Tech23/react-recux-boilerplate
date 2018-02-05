@@ -6,9 +6,10 @@ import TextField from 'material-ui/TextField';
 import { loginStyle } from './styles'
 import Button from 'material-ui/Button';
 import { BrowserRouter as Link } from 'react-router-dom';
-import { loginUser } from '../firbase'
+import { CircularProgress } from 'material-ui/Progress';
+import { fire } from '../firbase'
 import swal from 'sweetalert';
-
+import { connect } from 'react-redux'
 class Login extends Component {
 
     constructor(props) {
@@ -16,24 +17,42 @@ class Login extends Component {
         this.state = {
             email: '',
             password: "",
+            loading: false
         }
         this.emailHandler = this.emailHandler.bind(this)
         this.passwordHandler = this.passwordHandler.bind(this)
         this.login = this.login.bind(this)
     }
     emailHandler(e) {
-        console.log(e, "email")
+        // console.log(e, "email")
         this.setState({
             email: e.target.value
         })
 
     }
     passwordHandler(e) {
-        console.log(e.target.value, "password")
+        // console.log(e.target.value, "password")
         this.setState({
             password: e.target.value
         })
     }
+
+
+    loginUser = (user) => {
+
+        console.log(user.password, "user")
+        // fire.
+        //     auth().
+        //     signInWithEmailAndPassword(user.email, user.password).
+        //     then((user) => {
+        //         console.log(user, "login user")
+        //     }).
+        //     catch(err => console.log(err))
+
+    }
+
+
+
     login() {
         if (this.state.Username === '' || this.state.email === '' || this.state.password === '' || this.state.confirmPassword === '') {
             swal({
@@ -41,60 +60,86 @@ class Login extends Component {
                 text: "Filled the Form Completly!",
                 icon: "error",
             });
-        }else{
+        } else {
+            this.setState({ loading: true })
+            let email = this.state.email
+            let password = this.state.password
 
-            let user = {
-                email: this.state.email,
-                password: this.state.password
-            }
-            loginUser(user);
-            this.setState({
-                email: '',
-                password: ''
-            },()=>{this.props.history.push('/home')})
+            // loginUser(user);
+            fire.
+                auth().signInWithEmailAndPassword(email, password).then(() => {
+                    console.log("login user")
+
+                    this.setState({
+                        // loading: false,
+                        email: '',
+                        password: ''
+                    })
+                    // this.props.history.push('/home')
+                }).catch(err => console.log(err))
+
+
+
+
         }
     }
 
     render() {
-        console.log(this.state.email, "email")
         const { classes } = this.props;
         return (
-            <div>
-                <Paper className={classes.root} elevation={4}>
-                    <h1>Login</h1>
-                    <TextField
-                    value={this.state.email}
-                        error={false}
-                        id="with-placeholder"
-                        label="Email"
-                        placeholder="Enter Your Email"
-                        className="textField"
-                        onChange={(e) => this.emailHandler(e)}
-                    />
+            <div className={classes.root}>
+                {
+                    this.state.loading ?
+                        <div className="loader">
+                            <CircularProgress size={80} />
+                        </div> 
+                        :
 
-                    <TextField
-                    value={this.state.password}
-                        error={false}
-                        id="with-placeholder"
-                        label="Password"
-                        className="textField"
-                        placeholder="Enter Your Password"
-                        type='password'
-                        onChange={(e) => this.passwordHandler(e)}
-                    />
-                    <Button raised color="primary"
-                        onClick={() => this.login()}
-                    >
-                        lOGIN
+                        <Paper classes="paper-container"  elevation={4}>
+                            <h1>Login</h1>
+                            <TextField
+                                value={this.state.email}
+                                error={false}
+                                label="Email"
+                                placeholder="Enter Your Email"
+                                className="textField"
+                                onChange={(e) => this.emailHandler(e)}
+                            />
+
+                            <TextField
+                                value={this.state.password}
+                                error={false}
+                                label="Password"
+                                className="textField"
+                                placeholder="Enter Your Password"
+                                type='password'
+                                onChange={(e) => this.passwordHandler(e)}
+                            />
+                            <Button raised color="primary"
+                                onClick={() => this.login()}
+                            >
+                                lOGIN
                     </Button>
-                    {/* <Link to="/signup">Already have Account??</Link>  */}
-                    <span className='createAccount-span' onClick={() => this.props.history.push('/signup')}>
-                        Create an Account...
+                            {/* <Link to="/signup">Already have Account??</Link>  */}
+                            <span className='createAccount-span' onClick={() => this.props.history.push('/signup')}>
+                                Create an Account...
                     </span>
-
-                </Paper>
+                        </Paper>
+                }
             </div>
         );
     }
 }
-export default withStyles(loginStyle)(Login);
+
+function mapStateToProp(state) {
+    console.log(state, "login statw")
+    return {
+        loginUser: state
+    }
+}
+function mapDispatchToProp(dispatch) {
+    return {
+
+    }
+}
+export default connect(mapStateToProp, mapDispatchToProp)(withStyles(loginStyle)(Login));

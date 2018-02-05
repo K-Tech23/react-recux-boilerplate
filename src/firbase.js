@@ -15,23 +15,15 @@ const fire = firebase;
 
 const signupUser = (user) => {
 
-  fire.
-    auth().
-    createUserWithEmailAndPassword(user.email, user.password).
-    then((user) => console.log(user)).
-    catch(err => console.log(err))
+  fire.auth().createUserWithEmailAndPassword(user.email, user.password).then((user) => console.log(user)).catch(err => console.log(err))
 
 }
 const loginUser = (user) => {
 
   console.log(user.password, "user")
-  fire.
-    auth().
-    signInWithEmailAndPassword(user.email, user.password).
-    then((user) => {
+  fire.auth().signInWithEmailAndPassword(user.email, user.password).then((user) => {
       console.log(user, "login user")
-    }).
-    catch(err => console.log(err))
+    }).catch(err => console.log(err))
 
 }
 

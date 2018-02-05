@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper'
-import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
-import { loginStyle } from './styles'
 import Button from 'material-ui/Button';
-import { BrowserRouter as Link } from 'react-router-dom';
+// import { BrowserRouter as Link } from 'react-router-dom';
 import { signupStyle } from './styles'
 import { signupUser } from '../firbase'
 import swal from 'sweetalert';
