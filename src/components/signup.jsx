@@ -16,7 +16,8 @@ class Signup extends Component {
             email: '',
             password: "",
             confirmPassword: '',
-            matchPassowrd: false
+            matchPassowrd: false,
+            loading : false
         }
         this.usernameHandler = this.usernameHandler.bind(this)
         this.emailHandler = this.emailHandler.bind(this)
@@ -64,12 +65,12 @@ class Signup extends Component {
                 icon: "error",
             });
         } else {
-            let user = {
-                Username: this.state.Username,
-                email: this.state.email,
-                password: this.state.password
-            }
-            signupUser(user);
+            Username = this.state.Username
+            email = this.state.email
+            password = this.state.password
+
+            fire.auth().createUserWithEmailAndPassword(email, password).then((user) => console.log(user)).catch(err => console.log(err))
+            // signupUser(user);
             this.setState({
                 email: '',
                 password: ''

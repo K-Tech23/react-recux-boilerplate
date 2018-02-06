@@ -37,22 +37,6 @@ class Login extends Component {
         })
     }
 
-
-    loginUser = (user) => {
-
-        console.log(user.password, "user")
-        // fire.
-        //     auth().
-        //     signInWithEmailAndPassword(user.email, user.password).
-        //     then((user) => {
-        //         console.log(user, "login user")
-        //     }).
-        //     catch(err => console.log(err))
-
-    }
-
-
-
     login() {
         if (this.state.Username === '' || this.state.email === '' || this.state.password === '' || this.state.confirmPassword === '') {
             swal({
@@ -65,17 +49,17 @@ class Login extends Component {
             let email = this.state.email
             let password = this.state.password
 
-            // loginUser(user);
             fire.
                 auth().signInWithEmailAndPassword(email, password).then(() => {
                     console.log("login user")
 
                     this.setState({
-                        // loading: false,
+                        loading: false,
                         email: '',
                         password: ''
+                    }, () => {
+                        this.props.history.push('/home')
                     })
-                    // this.props.history.push('/home')
                 }).catch(err => console.log(err))
 
 
@@ -92,10 +76,10 @@ class Login extends Component {
                     this.state.loading ?
                         <div className="loader">
                             <CircularProgress size={80} />
-                        </div> 
+                        </div>
                         :
 
-                        <Paper classes="paper-container"  elevation={4}>
+                        <Paper className="paper-container" elevation={4}>
                             <h1>Login</h1>
                             <TextField
                                 value={this.state.email}
