@@ -7,8 +7,8 @@ import {appContentStyle} from './styles'
 class AppContent extends Component {
     render() {
         return (
-            <div>
-              <Routes/>
+            <div>zxZX
+              {/* <Routes/> */}
             </div>
         );
     }

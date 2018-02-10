@@ -8,9 +8,19 @@ import AppContent from '../container/AppContent'
 import AppLeftSider from '../container/AppLeftSider'
 import { appStyle } from './styles'
 import { connect } from 'react-redux'
+import swal from 'sweetalert';
+import customHistory from '../history'
+import Routes from '../routes/routes'
+
 import Middleware from '../store/middleware/middleware'
 class App extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+
+    }
+  }
 
   componentDidMount() {
     fire.auth().onAuthStateChanged(user => {
@@ -20,7 +30,10 @@ class App extends Component {
       } else {
         console.log(user, "no user login")
         this.props.loginUser(null)
+        this.props.history.push('/')
+      
       }
+
     })
   }
 
@@ -28,31 +41,16 @@ class App extends Component {
     const { classes } = this.props
     return (
       <div className={classes.root}>
-        <AppHeader />
-        <div className="appBody-div">
-
-          <div className="appRightSider-div">
-            <AppRightSider />
-          </div>
-
-          <div className="appContent-div">
-            <AppContent />
-          </div>
-
-          <div className="appLeftSider-div">
-            <AppLeftSider />
-          </div>
-
-        </div>
-        {/* <Routes /> */}
+        <Routes />
       </div>
     );
   }
 }
 
 function stateToProps(state) {
+  console.log(state, "state in app")
   return {
-
+    activeUser: state.loginUser
   }
 }
 function disptachToProps(dispatch) {

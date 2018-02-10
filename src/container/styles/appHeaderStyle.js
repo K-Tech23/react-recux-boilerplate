@@ -2,10 +2,12 @@ export default {
     root: {
         width: '100%',
 
-        flex: {
+        '& .title': {
             flex: 1,
+            textAlign:'center',
+            fontSize:30
         },
-        menuButton: {
+        '& .menuButton': {
             marginLeft: -12,
             marginRight: 20,
         }

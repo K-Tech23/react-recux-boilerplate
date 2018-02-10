@@ -1,7 +1,7 @@
 
 export default {
     root: {
-
+border:'1px solid black',
         '& .appBody-div': {
             display: 'flex',
             flexDirection: 'row',

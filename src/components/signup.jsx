@@ -5,19 +5,23 @@ import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 // import { BrowserRouter as Link } from 'react-router-dom';
 import { signupStyle } from './styles'
-import { signupUser } from '../firbase'
+import { fire } from '../firbase'
 import swal from 'sweetalert';
+import { CircularProgress } from 'material-ui/Progress';
+
 class Signup extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            Username: '',
+            userName: '',
             email: '',
-            password: "",
+            password: '',
             confirmPassword: '',
             matchPassowrd: false,
-            loading : false
+            loading: false,
+            hasError: false,
+            errorMessage:''
         }
         this.usernameHandler = this.usernameHandler.bind(this)
         this.emailHandler = this.emailHandler.bind(this)
@@ -26,14 +30,14 @@ class Signup extends Component {
         this.signup = this.signup.bind(this)
     }
     usernameHandler(e) {
-        console.log(e, "email")
+        // console.log(e, "email")
         this.setState({
-            email: e.target.value
+            userName: e.target.value
         })
 
     }
     emailHandler(e) {
-        console.log(e, "email")
+        // console.log(e, "email")
         this.setState({
             email: e.target.value
         })
@@ -46,7 +50,7 @@ class Signup extends Component {
         })
     }
     confirmPasswordHandler(e) {
-        console.log(e.target.value, "password")
+        // console.log(e.target.val ue, "password")
         this.setState({
             confirmPassword: e.target.value
         }, () => {
@@ -58,34 +62,59 @@ class Signup extends Component {
         })
     }
     signup() {
-        if (this.state.Username === '' || this.state.email === '' || this.state.password === '' || this.state.confirmPassword === '') {
+        if (this.state.userName === '' || this.state.email === '' || this.state.password === '' || this.state.confirmPassword === '') {
             swal({
                 title: "Oops!",
                 text: "Filled the Form Completly!",
                 icon: "error",
             });
         } else {
-            Username = this.state.Username
-            email = this.state.email
-            password = this.state.password
+            this.setState({ hasError: false, loading: true })
+            let userName = this.state.userName
+            let email = this.state.email
+            let password = this.state.password
 
-            fire.auth().createUserWithEmailAndPassword(email, password).then((user) => console.log(user)).catch(err => console.log(err))
-            // signupUser(user);
-            this.setState({
-                email: '',
-                password: ''
+            fire.auth().createUserWithEmailAndPassword(email, password).then((user) => {
+                console.log(user)
+                this.setState({
+                    loading: false,
+                    email: '',
+                    password: ''
+                }, () => {
+                    this.props.history.push('/')
+                })
+            }
+
+            ).catch(err => {
+                console.log(err,'error')
+                this.setState({
+                    errorMessage:err.message,
+                    hasError: true,
+                    loading: false
+                })
             })
+            // signupUser(user);
+
         }
     }
     render() {
         const { classes } = this.props;
         return (
-            <div>
-                <Paper className={classes.root} elevation={4}>
-                    <h1>Signup</h1>
+            <div className={classes.root}>
+                <Paper className='paper-container' elevation={4}>
+                    {
+                        this.state.loading ?
+                            <div className="loader">
+                                <CircularProgress size={80} />
+                            </div>
+                            : null}
+                    <h1 className="signup-title">Signup</h1>
+                    {this.state.hasError ?
+                        <span style={{ color: 'red',fontSize:'14px' }}>{this.state.errorMessage}</span>
+                        : null
+                    }
                     <TextField
                         error={false}
-                        id="with-placeholder"
                         label="Username"
                         placeholder="Enter Your Name"
                         className="textField"
@@ -94,7 +123,6 @@ class Signup extends Component {
                     />
                     <TextField
                         error={false}
-                        id="with-placeholder"
                         label="Email"
                         placeholder="Enter Your Email"
                         className="textField"
@@ -104,7 +132,6 @@ class Signup extends Component {
 
                     <TextField
                         error={false}
-                        id="with-placeholder"
                         label="Password"
                         className="textField"
                         placeholder="Enter Your Password"
@@ -114,7 +141,6 @@ class Signup extends Component {
                     />
                     <TextField
                         error={this.state.matchPassowrd}
-                        id="with-placeholder"
                         label="Confirm Password"
                         className="textField"
                         placeholder="Enter Your Password"
@@ -131,7 +157,7 @@ class Signup extends Component {
                         Already Have Account...?
                         </span>
 
-                </Paper>
+                </Paper>}
             </div>
         );
     }

@@ -10,6 +10,8 @@ import { CircularProgress } from 'material-ui/Progress';
 import { fire } from '../firbase'
 import swal from 'sweetalert';
 import { connect } from 'react-redux'
+import customHistory from '../history'
+
 class Login extends Component {
 
     constructor(props) {
@@ -17,7 +19,10 @@ class Login extends Component {
         this.state = {
             email: '',
             password: "",
-            loading: false
+            loading: false,
+            hasError: false,
+            errorMessage: ''
+
         }
         this.emailHandler = this.emailHandler.bind(this)
         this.passwordHandler = this.passwordHandler.bind(this)
@@ -59,8 +64,17 @@ class Login extends Component {
                         password: ''
                     }, () => {
                         this.props.history.push('/home')
+                        // customHistory.push('/home')
                     })
-                }).catch(err => console.log(err))
+                }).catch(err => {
+                    console.log(err)
+                    this.setState({
+                        errorMessage: err.message,
+                        hasError: true,
+                        loading: false
+                    })
+                }
+                )
 
 
 
@@ -72,43 +86,47 @@ class Login extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-                {
-                    this.state.loading ?
-                        <div className="loader">
-                            <CircularProgress size={80} />
-                        </div>
-                        :
 
-                        <Paper className="paper-container" elevation={4}>
-                            <h1>Login</h1>
-                            <TextField
-                                value={this.state.email}
-                                error={false}
-                                label="Email"
-                                placeholder="Enter Your Email"
-                                className="textField"
-                                onChange={(e) => this.emailHandler(e)}
-                            />
+                <Paper className="paper-container" elevation={4}>
+                    {
+                        this.state.loading ?
+                            <div className="loader">
+                                <CircularProgress size={80} />
+                            </div>
+                            : null}
+                    <h1 className='login-title'>Login</h1>
+                    {this.state.hasError ?
+                        <span style={{ color: 'red',fontSize:'14px' }}>{this.state.errorMessage}</span>
+                        : null
+                    }
+                    <TextField
+                        value={this.state.email}
+                        error={false}
+                        label="Email"
+                        placeholder="Enter Your Email"
+                        className="textField"
+                        onChange={(e) => this.emailHandler(e)}
+                    />
 
-                            <TextField
-                                value={this.state.password}
-                                error={false}
-                                label="Password"
-                                className="textField"
-                                placeholder="Enter Your Password"
-                                type='password'
-                                onChange={(e) => this.passwordHandler(e)}
-                            />
-                            <Button raised color="primary"
-                                onClick={() => this.login()}
-                            >
-                                lOGIN
+                    <TextField
+                        value={this.state.password}
+                        error={false}
+                        label="Password"
+                        className="textField"
+                        placeholder="Enter Your Password"
+                        type='password'
+                        onChange={(e) => this.passwordHandler(e)}
+                    />
+                    <Button raised color="primary"
+                        onClick={() => this.login()}
+                    >
+                        lOGIN
                     </Button>
-                            {/* <Link to="/signup">Already have Account??</Link>  */}
-                            <span className='createAccount-span' onClick={() => this.props.history.push('/signup')}>
-                                Create an Account...
+                    {/* <Link to="/signup">Already have Account??</Link>  */}
+                    <span className='createAccount-span' onClick={() => this.props.history.push('/signup')}>
+                        Create an Account...
                     </span>
-                        </Paper>
+                </Paper>
                 }
             </div>
         );
