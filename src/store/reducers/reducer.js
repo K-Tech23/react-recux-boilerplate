@@ -12,7 +12,7 @@ function reducerFunction(state = INITIAL_STATE, action) {
 
         case Constant.USER_LOGIN: //login user
         console.log("user login")
-            return { ...state, loginUser: action.payload }
+            return { ...state, loginUser: action.payload  }
 
         case Constant.REGISTER: //register
             return state

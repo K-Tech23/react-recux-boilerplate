@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-
+import { connect } from 'react-redux'
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
-import customHistory from '../history'
+import { BrowserRouter as Link } from 'react-router-dom';
 import { fire } from '../firbase'
 import swal from 'sweetalert';
 import MenuIcon from 'material-ui-icons/Menu';
@@ -23,6 +23,10 @@ class AppHeader extends Component {
 
         }
     }
+    show(){
+        this.props.history.push('/signup')
+        
+    }
     logout() {
         fire.auth().signOut().then(() => {
             swal({
@@ -37,30 +41,38 @@ class AppHeader extends Component {
 
 
     render() {
-        const { classes } = this.props;
+        const { classes, currentLogin } = this.props;
+        console.log(currentLogin, "login user")
         return (
             <div className={classes.root}>
                 <AppBar position="static">
                     <Toolbar>
-                        {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-                        </IconButton>
-                        <Typography type="title" color="inherit" className={classes.flex}>
-                            Title
-                        </Typography>
-                        <Button color="inherit"
-                        onClick={this.logout.bind(this)}
-                        >Logout</Button> */}
-                        {/* <IconButton className='menuButton' color="inherit" aria-label="Menu">
-                            <MenuIcon />
-                        </IconButton> */}
                         <Typography variant="title" color="inherit" className='title'>
                             Title
                         </Typography>
-                        <Button color="inherit" onClick={this.logout.bind(this)}>Logout</Button>
+                        {
+                            currentLogin === null ?
+                                <Button color="inherit" onClick={this.show.bind(this)}> Signup</Button>
+                                :
+                                <Button color="inherit" onClick={this.logout.bind(this)}>Logout</Button>
+
+                        }
                     </Toolbar>
                 </AppBar>
             </div>
         );
     }
 }
-export default withStyles(appHeaderStyle)(AppHeader);
+
+function mapStateToProp(state) {
+    console.log(state.loginUser, "login statw")
+    return {
+        currentLogin: state.loginUser
+    }
+}
+function mapDispatchToProp(dispatch) {
+    return {
+
+    }
+}
+export default connect(mapStateToProp, mapDispatchToProp)(withStyles(appHeaderStyle)(AppHeader));

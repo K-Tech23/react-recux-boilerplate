@@ -21,7 +21,7 @@ class Signup extends Component {
             matchPassowrd: false,
             loading: false,
             hasError: false,
-            errorMessage:''
+            errorMessage: ''
         }
         this.usernameHandler = this.usernameHandler.bind(this)
         this.emailHandler = this.emailHandler.bind(this)
@@ -76,6 +76,12 @@ class Signup extends Component {
 
             fire.auth().createUserWithEmailAndPassword(email, password).then((user) => {
                 console.log(user)
+                let key = fire.auth().currentUser.uid;
+                // fire.database().ref('users').child(key).push({
+                //     userName: this.state.userName,
+                //     email: this.state.email,
+                //     userId : key
+                // })
                 this.setState({
                     loading: false,
                     email: '',
@@ -86,9 +92,9 @@ class Signup extends Component {
             }
 
             ).catch(err => {
-                console.log(err,'error')
+                console.log(err, 'error')
                 this.setState({
-                    errorMessage:err.message,
+                    errorMessage: err.message,
                     hasError: true,
                     loading: false
                 })
@@ -110,7 +116,7 @@ class Signup extends Component {
                             : null}
                     <h1 className="signup-title">Signup</h1>
                     {this.state.hasError ?
-                        <span style={{ color: 'red',fontSize:'14px' }}>{this.state.errorMessage}</span>
+                        <span style={{ color: 'red', fontSize: '14px' }}>{this.state.errorMessage}</span>
                         : null
                     }
                     <TextField
