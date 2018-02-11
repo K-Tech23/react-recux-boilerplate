@@ -56,7 +56,7 @@ function stateToProps(state) {
 function disptachToProps(dispatch) {
   return {
     loginUser: function (value) {
-      return dispatch(Middleware.asyncCurrentUser(value))
+      return dispatch(Middleware.asyncIsUserLogin(value))
     }
   }
 }

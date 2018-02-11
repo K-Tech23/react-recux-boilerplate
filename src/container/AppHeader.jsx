@@ -91,7 +91,7 @@ class AppHeader extends Component {
                             <List className="first-list">Campus Recruitment System</List>
                         </div>
                         <Divider />
-                        <List className='list' id='login' onClick={this.__currentPage.bind(this)}>asdasdas"</List>
+                        <List className='list' id='createCV' onClick={this.__currentPage.bind(this)}>Create CV</List>
                         <Divider />
                         <List className='list' id="signup" onClick={this.__currentPage.bind(this)}>"asdasdasd</List>
                     </div>

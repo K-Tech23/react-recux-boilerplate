@@ -6,11 +6,13 @@ import Typography from 'material-ui/Typography';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Person from 'material-ui-icons/Person'
 import Email from 'material-ui-icons/Email'
+import { connect } from 'react-redux'
+
 class AppLeftSider extends Component {
     render() {
-        const { classes ,loginUserData } = this.props
+        const { classes, currentUser } = this.props
         const avatar = require('../assets/avatar-placeholder.png')
-        console.log(this.props.loginUserData,"props")
+        console.log(this.props.currentUser, "props")
         return (
             // <div>
             <Paper className={classes.root} elevation={4}>
@@ -19,15 +21,15 @@ class AppLeftSider extends Component {
                 <List component="nav" className="detail-list">
                     <ListItem button>
                         <ListItemIcon>
-                            <Person/>
+                            <Person />
                         </ListItemIcon>
-                        <ListItemText inset primary={loginUserData.userName} className="list-text" />
+                        <ListItemText inset primary={currentUser.userName} className="list-text" />
                     </ListItem>
                     <ListItem button>
                         <ListItemIcon>
-                            <Email/>
+                            <Email />
                         </ListItemIcon>
-                        <ListItemText inset primary={loginUserData.email} />
+                        <ListItemText inset primary={currentUser.email} />
                     </ListItem>
                 </List>
             </Paper>
@@ -35,5 +37,15 @@ class AppLeftSider extends Component {
         );
     }
 }
+function stateToProps(state) {
+    console.log(state, "state in app")
+    return {
+        currentUser: state.currentUser
+    }
+}
+function disptachToProps(dispatch) {
+    return {
 
-export default withStyles(appLeftSiderStyle)(AppLeftSider);
+    }
+}
+export default connect(stateToProps, disptachToProps)(withStyles(appLeftSiderStyle)(AppLeftSider))

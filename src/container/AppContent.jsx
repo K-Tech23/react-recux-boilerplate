@@ -3,8 +3,7 @@ import { withStyles } from 'material-ui/styles';
 import Routes from '../routes/routes'
 import { appContentStyle } from './styles'
 import Paper from 'material-ui/Paper';
-import Login from '../components/login'
-import Signup from '../components/signup'
+import CreateCV from '../components/createCV'
 import { connect } from 'react-redux'
 
 class AppContent extends Component {
@@ -14,8 +13,8 @@ class AppContent extends Component {
         return (
             <Paper className={classes.root} elevation={4}>
                 {{
-                    login: <Login />,
-                    signup: <Signup />
+                    createCV: <CreateCV />,
+                    // signup: <Signup />
                 }[this.props.currentPage]}
             </Paper>
         );

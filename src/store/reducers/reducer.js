@@ -5,7 +5,8 @@ var INITIAL_STATE =
     {
         loginUser: null,
         loading: false,
-        currentPage : ''
+        currentPage: '',
+        currentUser: {}
     }
 function reducerFunction(state = INITIAL_STATE, action) {
     console.log(action, "reducer calling")
@@ -17,11 +18,20 @@ function reducerFunction(state = INITIAL_STATE, action) {
 
         case Constant.REGISTER: //register
             return state
+
         case Constant.LOGIN: //login
             return state
+
         case Constant.CURRENT_PAGE:
-            return    { ...state, currentPage: action.payload }    
-             default:
+            return { ...state, currentPage: action.payload }
+
+        case Constant.CURRENT_USER :
+        return { ...state, currentUser: action.payload }
+
+        case Constant.USER_LOGOUT:
+            return { ...state, currentPage: '', loginUser: null, curentUser: {} }
+
+        default:
             return state
 
 

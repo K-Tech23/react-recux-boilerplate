@@ -2,10 +2,10 @@ import Action from '../actions/actions'
 export default class Middleware {
 
 
-    static asyncCurrentUser(data) {
+    static asyncIsUserLogin(data) {
         console.log(data,"middleware")
         return (dispatch) => {
-            dispatch(Action.setCurrentUser(data))
+            dispatch(Action.isUserLogin(data))
         }
     }
     static asyncCurrentPage(page) {
@@ -14,9 +14,19 @@ export default class Middleware {
             dispatch(Action.setCurrentPage(page))
         }
     }
-    static login(data) {
-
+    static asyncCurrentUser(data) {
+        console.log(data,"middleware")
+        return (dispatch) => {
+            dispatch(Action.setCurrentUser(data))
+        }
     }
+    static asyncLogout(data) {
+        console.log(data,"middleware")
+        return (dispatch) => {
+            dispatch(Action.logout(data))
+        }
+    }
+ 
 
 
 

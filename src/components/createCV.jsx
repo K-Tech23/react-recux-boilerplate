@@ -4,13 +4,13 @@ import Paper from 'material-ui/Paper';
 import { connect } from 'react-redux'
 
 import { createCVStyle } from './styles'
-class createCV extends Component {
+class CreateCV extends Component {
     render() {
         const { classes } = this.props
 
         return (
             <Paper className={classes.root} elevation={4}>
-            
+            Create CV
             </Paper>
         );
     }
@@ -27,4 +27,4 @@ function disptachToProps(dispatch) {
 
     }
 }
-export default connect(stateToProps, disptachToProps)(withStyles(createCVStyle)(createCV));
+export default connect(stateToProps, disptachToProps)(withStyles(createCVStyle)(CreateCV));

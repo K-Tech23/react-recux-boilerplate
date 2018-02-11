@@ -8,6 +8,8 @@ import { homeStyle } from './styles'
 import customHistory from '../history'
 import { fire } from '../firbase'
 import Grid from 'material-ui/Grid';
+import Middleware from '../store/middleware/middleware'
+
 class Home extends Component {
     constructor(props) {
         super(props)
@@ -21,6 +23,7 @@ class Home extends Component {
         let rooRef = fire.database().ref('users/' + loginUserId)
         rooRef.on('value', (snap) => {
             console.log(snap.val(), "will mount")
+            this.props.currentUser(snap.val())
             this.setState({
                 userData: snap.val()
             })
@@ -65,7 +68,9 @@ function stateToProps(state) {
 }
 function disptachToProps(dispatch) {
     return {
-
+        currentUser: function (value) {
+            return dispatch(Middleware.asyncCurrentUser(value))
+        }
     }
 }
 export default connect(stateToProps, disptachToProps)(withStyles(homeStyle)(Home));
