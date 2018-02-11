@@ -57,7 +57,8 @@ class Login extends Component {
             fire.
                 auth().signInWithEmailAndPassword(email, password).then(() => {
                     console.log("login user")
-
+                    var id = fire.auth().currentUser.uid
+                    localStorage.setItem("loginUser",id)
                     this.setState({
                         loading: false,
                         email: '',
@@ -86,7 +87,7 @@ class Login extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-            
+
                 <Paper className="paper-container" elevation={4}>
                     {
                         this.state.loading ?
@@ -96,7 +97,7 @@ class Login extends Component {
                             : null}
                     <h1 className='login-title'>Login</h1>
                     {this.state.hasError ?
-                        <span style={{ color: 'red',fontSize:'14px' }}>{this.state.errorMessage}</span>
+                        <span style={{ color: 'red', fontSize: '14px' }}>{this.state.errorMessage}</span>
                         : null
                     }
                     <TextField

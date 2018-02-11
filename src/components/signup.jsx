@@ -8,7 +8,8 @@ import { signupStyle } from './styles'
 import { fire } from '../firbase'
 import swal from 'sweetalert';
 import { CircularProgress } from 'material-ui/Progress';
-
+import Radio, { RadioGroup } from 'material-ui/Radio';
+import { FormLabel, FormControl, FormControlLabel, FormHelperText } from 'material-ui/Form'
 class Signup extends Component {
 
     constructor(props) {
@@ -21,7 +22,8 @@ class Signup extends Component {
             matchPassowrd: false,
             loading: false,
             hasError: false,
-            errorMessage: ''
+            errorMessage: '',
+            value:''
         }
         this.usernameHandler = this.usernameHandler.bind(this)
         this.emailHandler = this.emailHandler.bind(this)
@@ -73,15 +75,15 @@ class Signup extends Component {
             let userName = this.state.userName
             let email = this.state.email
             let password = this.state.password
-
             fire.auth().createUserWithEmailAndPassword(email, password).then((user) => {
                 console.log(user)
                 let key = fire.auth().currentUser.uid;
-                // fire.database().ref('users').child(key).push({
-                //     userName: this.state.userName,
-                //     email: this.state.email,
-                //     userId : key
-                // })
+                fire.database().ref('users/' + key).set({
+                    userName: this.state.userName,
+                    email: this.state.email,
+                    userId: key,
+                    type : this.state.value
+                })
                 this.setState({
                     loading: false,
                     email: '',
@@ -103,6 +105,11 @@ class Signup extends Component {
 
         }
     }
+   
+    handleChange = (event, value) => {
+        console.log(value,"radio")
+        this.setState({ value });
+    };
     render() {
         const { classes } = this.props;
         return (
@@ -154,7 +161,19 @@ class Signup extends Component {
                         onChange={(e) => this.confirmPasswordHandler(e)}
 
                     />
-                    <Button raised color="primary"
+                    <FormControl component="fieldset" required className='radio-control'>
+                        <RadioGroup
+                            aria-label="gender"
+                            name="user"
+                            className={classes.group}
+                            value={this.state.value}
+                            onChange={this.handleChange}
+                        >
+                            <FormControlLabel value="student" control={<Radio />} label="Student" />
+                            <FormControlLabel value="company" control={<Radio />} label="Company" />
+                        </RadioGroup>
+                    </FormControl>
+                    <Button variant="raised" color="primary"
                         onClick={() => this.signup()}
                     >
                         Signup

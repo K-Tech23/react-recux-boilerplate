@@ -1,7 +1,8 @@
 
 export default {
     root: {
-border:'1px solid black',
+        // border:'1px solid black',
+        marginTop: 5,
         '& .appBody-div': {
             display: 'flex',
             flexDirection: 'row',
@@ -15,12 +16,12 @@ border:'1px solid black',
                 border: '1px solid black'
             },
             '& .appContent-active-div': {
-                width:'calc(59vw - 15px)',
+                width: 'calc(59vw - 15px)',
                 border: '1px solid black'
             },
             '& .appContent-div': {
-                margin:'0 auto',
-                width:'calc(59vw - 15px)',
+                margin: '0 auto',
+                width: 'calc(59vw - 15px)',
                 border: '1px solid black'
             },
             '& .appLeftSider-div': {

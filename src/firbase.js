@@ -1,13 +1,13 @@
 import * as firebase from 'firebase';
 
-// Initialize Firebase
-var config = {
-  apiKey: "AIzaSyCfN93IgCJM6Af_asx_RCZTqq7_gq51hXY",
-  authDomain: "khalid-react-chat-app.firebaseapp.com",
-  databaseURL: "https://khalid-react-chat-app.firebaseio.com",
-  projectId: "khalid-react-chat-app",
-  storageBucket: "",
-  messagingSenderId: "704247186442"
+ // Initialize Firebase
+ var config = {
+  apiKey: "AIzaSyCdi30dqvP75rdLZhlpl04BjlJGB3GDzLc",
+  authDomain: "campuse-recruiment-system.firebaseapp.com",
+  databaseURL: "https://campuse-recruiment-system.firebaseio.com",
+  projectId: "campuse-recruiment-system",
+  storageBucket: "campuse-recruiment-system.appspot.com",
+  messagingSenderId: "635307527115"
 };
 firebase.initializeApp(config);
 

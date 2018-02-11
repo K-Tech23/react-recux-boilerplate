@@ -8,20 +8,14 @@ export default class Action {
             payload : user
         }
     }
+    static setCurrentPage(page){
+        console.log(page,"action called")
+        return {
+            type:Constant.CURRENT_PAGE,
+            payload : page
+        }
+    }
 
-    // static signup(date){
-    //     return{
-    //         type :Constant.REGISTER,
-    //         payload :data
-    //     }
-    // }
-
-    // static login(date){
-    //     return{
-    //         type :Constant.LOGIN,
-    //         payload :data
-    //     }
-    // }
 
 
 
